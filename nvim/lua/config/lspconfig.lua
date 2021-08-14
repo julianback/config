@@ -128,10 +128,38 @@ for type, icon in pairs(signs) do
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
 
--- Automatically update diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-  underline = false,
-  update_in_insert = false,
-  virtual_text = { spacing = 4, prefix = "●" },
-  severity_sort = true,
-})
+-- Show source in diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+  function(_, _, params, client_id, _)
+    local config = { -- your config
+      underline = true,
+      virtual_text = {
+        prefix = "●",
+        spacing = 4,
+      },
+      signs = true,
+      update_in_insert = false,
+      -- severity_sort = true,
+    }
+    local uri = params.uri
+    local bufnr = vim.uri_to_bufnr(uri)
+
+    if not bufnr then
+      return
+    end
+
+    local diagnostics = params.diagnostics
+
+    for i, v in ipairs(diagnostics) do
+      diagnostics[i].message = string.format("%s: %s", v.source, v.message)
+    end
+
+    vim.lsp.diagnostic.save(diagnostics, bufnr, client_id)
+
+    if not vim.api.nvim_buf_is_loaded(bufnr) then
+      return
+    end
+
+    vim.lsp.diagnostic.display(diagnostics, bufnr, client_id, config)
+  end
+
