@@ -1,7 +1,16 @@
+-- https://github.com/tjdevries/config_manager/blob/master/xdg_config/nvim/lua/tj/telescope/init.lua
+
 local M = {}
--- local themes = require "telescope.themes"
+local themes = require "telescope.themes"
 local utils = require('telescope.utils')
 local builtin = require('telescope.builtin')
+
+function M.buffers()
+  require("telescope.builtin").buffers {
+    shorten_path = false,
+    previewer = false,
+  }
+end
 
 function M.curr_buff()
   local opts = {
@@ -37,11 +46,20 @@ function M.git_files()
   end
 end
 
-function M.buffers()
-  require("telescope.builtin").buffers {
-    shorten_path = false,
+function M.git_status()
+  local opts = themes.get_dropdown {
+    winblend = 10,
+    border = true,
     previewer = false,
+    shorten_path = false,
   }
+
+  -- Can change the git icons using this.
+  -- opts.git_icons = {
+  --   changed = "M"
+  -- }
+
+  require("telescope.builtin").git_status(opts)
 end
 
 return M

@@ -30,3 +30,6 @@ map_tele("<space>ft", "git_files")
 -- Nvim
 map_tele('<space>ff', "curr_buff")
 map_tele("<space>fb", "buffers")
+
+-- Git
+map_tele("<space>gs", "git_status")
