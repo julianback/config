@@ -54,3 +54,4 @@ vim.o.updatetime = 250
 
 -- Highlight on yank
 cmd("au TextYankPost * lua vim.highlight.on_yank {}")
+

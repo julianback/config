@@ -49,6 +49,9 @@ return require('packer').startup(function()
   use 'neovim/nvim-lspconfig'
   use 'kabouzeid/nvim-lspinstall'
 
+  -- Autocompletion plugin
+  use 'hrsh7th/nvim-compe'
+
   -- Nice diagnostics
   use {
     "folke/trouble.nvim",
@@ -73,5 +76,6 @@ return require('packer').startup(function()
     "folke/todo-comments.nvim",
     requires = "nvim-lua/plenary.nvim",
   }
+
 
 end)

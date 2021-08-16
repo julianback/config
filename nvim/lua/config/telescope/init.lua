@@ -1,3 +1,4 @@
+--map('n', '<space>ff', [[ <cmd> lua require('config.telescope.mappings').curr_buff() <CR> ]],{ noremap = true, silent = true })
 local function map_tele(lhs, f, opts)
   local options = { noremap = true, silent = true }
   if opts then options = vim.tbl_extend('force', options, opts) end
@@ -6,9 +7,16 @@ local function map_tele(lhs, f, opts)
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
+local actions = require('telescope.actions')
+
 require('telescope').setup {
   defaults = {
-    prompt_prefix = "$ "
+    prompt_prefix = "$ ",
+    mappings = {
+      i = {
+        ["<esc>"] = actions.close -- Mapping <Esc> to quit in insert mode
+      },
+    },
   },
   extensions = {
     fzf = {
@@ -23,9 +31,10 @@ require('telescope').setup {
 -- load_extension, somewhere after setup function:
 require('telescope').load_extension('fzf')
 
---map('n', '<space>ff', [[ <cmd> lua require('config.telescope.mappings').curr_buff() <CR> ]],{ noremap = true, silent = true })
+-- Mappings
+
 -- Files
-map_tele("<space>ft", "git_files")
+map_tele("<space>ft", "project_files")
 
 -- Nvim
 map_tele('<space>ff', "curr_buff")
