@@ -1,4 +1,40 @@
 vim.o.completeopt = "menuone,noselect"
+require('vim.lsp.protocol').CompletionItemKind = {
+    '', -- Text
+    '', -- Method
+    '', -- Function
+    '', -- Constructor
+    '', -- Field
+    '', -- Variable
+    '', -- Class
+    'ﰮ', -- Interface
+    '', -- Module
+    '', -- Property
+    '', -- Unit
+    '', -- Value
+    '了', -- Enum
+    '', -- Keyword
+    '﬌', -- Snippet
+    '', -- Color
+    '', -- File
+    '', -- Reference
+    '', -- Folder
+    '', -- EnumMember
+    '', -- Constant
+    '', -- Struct
+    '', -- Event
+    'ﬦ', -- Operator
+    '', -- TypeParameter
+}
+-- vim.lsp.protocol.CompletionItemKind = {
+--   "ﮜ [text]", " [method]", " [function]", " [constructor]",
+--   "ﰠ [field]", " [variable]", " [class]", " [interface]",
+--   " [module]", " [property]", " [unit]", " [value]",
+--   " [enum]", " [key]", " [Snippet]", " [color]", " [file]",
+--   " [reference]", " [folder]", " [enum member]",
+--   " [constant]", " [struct]", "⌘ [event]", " [operator]",
+--   "⌂ [type]"
+-- }
 
 require('compe').setup {
   enabled = true;
@@ -37,5 +73,5 @@ require('compe').setup {
 
 vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm({ 'keys': '<CR>', 'select': v:true })", { expr = true })
 vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { expr = true })
--- vim.api.nvim_set_keymap("i", "<C-e>", "compe#close({ 'keys': '<C-e>'})", { expr = true })
+vim.api.nvim_set_keymap("i", "<C-e>", "compe#close({ 'keys': '<C-e>'})", { expr = true })
 

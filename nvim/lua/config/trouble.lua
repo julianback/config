@@ -45,3 +45,20 @@ require("trouble").setup {
     use_lsp_diagnostic_signs = false -- enabling this will use the signs defined in your lsp client
   }
 }
+
+-- Commands
+local function map_trouble(lhs, f, opts)
+  local options = { noremap = true, silent = true }
+  if opts then options = vim.tbl_extend('force', options, opts) end
+  local mode = "n"
+  local rhs = string.format("<cmd>Trouble %s <cr>", f)
+  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
+map_trouble("<leader>xx", "")
+map_trouble("<leader>xd", "lsp_document_diagnostics") -- document diagnostics from the builtin LSP client
+map_trouble("<leader>xw", "lsp_workspace_diagnostics") -- workspace diagnostics from the builtin LSP client
+map_trouble("<leader>xl", "loclist") -- items from the window's location list
+map_trouble("<leader>xq", "quickfix") -- quickfix items
+map_trouble("gR", "lsp_references") -- references of the word under the cursor from the builtin LSP client
+-- map_trouble("gD", "lsp_definitions") -- definitions of the word under the cursor from the builtin LSP client
