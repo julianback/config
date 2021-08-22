@@ -41,9 +41,6 @@ o.softtabstop = -1
 o.tabstop = 2
 o.expandtab = true
 
--- Y yank until the end of line
-map('n', 'Y', 'y$')
-
 -- Show cursor line only in active window
 cmd([[
   autocmd InsertLeave,WinEnter * set cursorline
@@ -56,11 +53,25 @@ opt.signcolumn = "yes"
 -- Decrease update time
 o.updatetime = 250
 
--- Highlight on yank
-cmd("au TextYankPost * lua vim.highlight.on_yank {}")
-
 -- Show eol character
 vim.opt.list = true
 vim.opt.listchars = {
   eol = "↲"
 }
+
+-- Highlight on yank
+cmd("au TextYankPost * lua vim.highlight.on_yank {}")
+
+-- Y yank until the end of line
+map('n', 'Y', 'y$')
+
+-- Copy to clipboard
+map('v', '<leader>y', '"+y')
+map('n', '<leader>y', '"+y')
+map('n', '<leader>Y', '"+yg_')
+
+-- Paste from clipboard
+map('n', '<leader>p', '"+p')
+map('n', '<leader>P', '"+P')
+map('v', '<leader>p', '"+p')
+map('v', '<leader>P', '"+P')
