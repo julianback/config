@@ -1,40 +1,4 @@
 vim.o.completeopt = "menuone,noselect"
-require('vim.lsp.protocol').CompletionItemKind = {
-    '', -- Text
-    '', -- Method
-    '', -- Function
-    '', -- Constructor
-    '', -- Field
-    '', -- Variable
-    '', -- Class
-    'ﰮ', -- Interface
-    '', -- Module
-    '', -- Property
-    '', -- Unit
-    '', -- Value
-    '了', -- Enum
-    '', -- Keyword
-    '﬌', -- Snippet
-    '', -- Color
-    '', -- File
-    '', -- Reference
-    '', -- Folder
-    '', -- EnumMember
-    '', -- Constant
-    '', -- Struct
-    '', -- Event
-    'ﬦ', -- Operator
-    '', -- TypeParameter
-}
--- vim.lsp.protocol.CompletionItemKind = {
---   "ﮜ [text]", " [method]", " [function]", " [constructor]",
---   "ﰠ [field]", " [variable]", " [class]", " [interface]",
---   " [module]", " [property]", " [unit]", " [value]",
---   " [enum]", " [key]", " [Snippet]", " [color]", " [file]",
---   " [reference]", " [folder]", " [enum member]",
---   " [constant]", " [struct]", "⌘ [event]", " [operator]",
---   "⌂ [type]"
--- }
 
 require('compe').setup {
   enabled = true;

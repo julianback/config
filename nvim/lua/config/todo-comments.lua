@@ -51,5 +51,9 @@ require("todo-comments").setup {
     -- don't replace the (KEYWORDS) placeholder
     pattern = [[\b(KEYWORDS):]], -- ripgrep regex
     -- pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You'll likely get false positives
-  }, 
+  },
 }
+
+local options = { noremap = true, silent = true }
+vim.api.nvim_set_keymap("n", "<leader>xT", "<cmd>TodoTrouble<cr>", options);
+vim.api.nvim_set_keymap("n", "<leader>fe", "<cmd>TodoTelescope<cr>", options);

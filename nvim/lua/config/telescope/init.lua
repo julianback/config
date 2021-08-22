@@ -1,3 +1,5 @@
+local sorters = require "telescope.sorters"
+
 --map('n', '<space>ff', [[ <cmd> lua require('config.telescope.mappings').curr_buff() <CR> ]],{ noremap = true, silent = true })
 local function map_tele(lhs, f, opts)
   local options = { noremap = true, silent = true }
@@ -34,11 +36,25 @@ require('telescope').load_extension('fzf')
 -- Mappings
 
 -- Files
-map_tele("<space>ft", "project_files")
+map_tele("<leader>ft", "project_files")
 
 -- Nvim
-map_tele('<space>ff', "curr_buff")
-map_tele("<space>fb", "buffers")
+map_tele('<leader>ff', "curr_buff")
+map_tele("<leader>fb", "buffers")
+map_tele("<leader>fh", "help_tags")
 
 -- Git
-map_tele("<space>gs", "git_status")
+map_tele("<leader>gs", "git_status")
+map_tele("<leader>gc", "git_commits")
+
+-- Search
+map_tele("<leader>fg", "live_grep")
+map_tele("<leader>gp", "grep_prompt")
+--[[ map_tele("<space>gw", "grep_string", {
+  short_path = true,
+  word_match = "-w",
+  only_sort_text = true,
+  layout_strategy = "vertical",
+  sorter = sorters.get_fzy_sorter(),
+}) ]]
+

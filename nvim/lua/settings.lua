@@ -3,12 +3,16 @@ local o = vim.o -- Set option
 local wo = vim.wo -- Set window-scoped local-option
 local api = vim.api -- Invoke Nvim API function
 local cmd = vim.cmd -- Execute Vimscript
+local opt = vim.opt
 
 local function map(mode, lhs, rhs, opts)
   local options = {noremap = true}
   if opts then options = vim.tbl_extend('force', options, opts) end
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
+
+-- Make leader <space>
+g.mapleader = " "
 
 -- Line numbers
 wo.number = true
@@ -47,11 +51,16 @@ cmd([[
 ]])
 
 -- Always show the signcolumn
-vim.opt.signcolumn = "yes"
+opt.signcolumn = "yes"
 
 -- Decrease update time
-vim.o.updatetime = 250
+o.updatetime = 250
 
 -- Highlight on yank
 cmd("au TextYankPost * lua vim.highlight.on_yank {}")
 
+-- Show eol character
+vim.opt.list = true
+vim.opt.listchars = {
+  eol = "↲"
+}

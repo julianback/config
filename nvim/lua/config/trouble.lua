@@ -62,3 +62,4 @@ map_trouble("<leader>xl", "loclist") -- items from the window's location list
 map_trouble("<leader>xq", "quickfix") -- quickfix items
 map_trouble("gR", "lsp_references") -- references of the word under the cursor from the builtin LSP client
 -- map_trouble("gD", "lsp_definitions") -- definitions of the word under the cursor from the builtin LSP client
+-- map_trouble("", "")

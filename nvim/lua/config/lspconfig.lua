@@ -1,5 +1,16 @@
 -- https://github.com/kabouzeid/nvim-lspinstall/wiki
 
+local border = {
+  {"╭", "FloatBorder"},
+  {"─", "FloatBorder"},
+  {"╮", "FloatBorder"},
+  {"│", "FloatBorder"},
+  {"╯", "FloatBorder"},
+  {"─", "FloatBorder"},
+  {"╰", "FloatBorder"},
+  {"│", "FloatBorder"},
+}
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
@@ -25,7 +36,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
@@ -47,6 +58,11 @@ local on_attach = function(client, bufnr)
     augroup END
     ]], false)
   end
+
+  -- UI customization: Borders
+  -- https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#borders
+  vim.lsp.handlers["textDocument/hover"] =  vim.lsp.with(vim.lsp.handlers.hover, {border = border})
+  vim.lsp.handlers["textDocument/signatureHelp"] =  vim.lsp.with(vim.lsp.handlers.signature_help, {border = border})
 
 end
 
@@ -120,7 +136,43 @@ require'lspinstall'.post_install_hook = function ()
   vim.cmd("bufdo e") -- this triggers the FileType autocmd that starts the server
 end
 
+
+-- UI customization
+-- Borders - https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#borders
+vim.cmd [[autocmd ColorScheme * highlight NormalFloat guibg=#1f2335]]
+vim.cmd [[autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f2335]]
+
+-- Completion kinds - https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#completion-kinds
+require('vim.lsp.protocol').CompletionItemKind = {
+    '', -- Text
+    '', -- Method
+    '', -- Function
+    '', -- Constructor
+    '', -- Field
+    '', -- Variable
+    '', -- Class
+    'ﰮ', -- Interface
+    '', -- Module
+    '', -- Property
+    '', -- Unit
+    '', -- Value
+    '了', -- Enum
+    '', -- Keyword
+    '﬌', -- Snippet
+    '', -- Color
+    '', -- File
+    '', -- Reference
+    '', -- Folder
+    '', -- EnumMember
+    '', -- Constant
+    '', -- Struct
+    '', -- Event
+    'ﬦ', -- Operator
+    '', -- TypeParameter
+}
+
 -- Change diagnostic symbols in the sign column (gutter)
+-- https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#change-diagnostic-symbols-in-the-sign-column-gutter
 local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
 
 for type, icon in pairs(signs) do
@@ -129,9 +181,12 @@ for type, icon in pairs(signs) do
 end
 
 -- Show source in diagnostics
+-- https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#show-source-in-diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] =
   function(_, _, params, client_id, _)
-    local config = { -- your config
+    local config = {
+      -- Customizing how diagnostics are displayed
+      -- https://github.com/neovim/nvim-lspconfig/wiki/UI-customization#customizing-how-diagnostics-are-displayed
       underline = true,
       virtual_text = {
         prefix = "●",
@@ -162,4 +217,3 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
 
     vim.lsp.diagnostic.display(diagnostics, bufnr, client_id, config)
   end
-

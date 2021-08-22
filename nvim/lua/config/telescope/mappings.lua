@@ -40,8 +40,11 @@ end
 --   require("telescope.builtin").git_files()
 -- end
 
--- function M.git_hunks()
--- end
+function M.git_commits()
+  require("telescope.builtin").git_commits {
+    winblend = 5,
+  }
+end
 
 function M.git_status()
   local opts = themes.get_dropdown {
@@ -52,9 +55,9 @@ function M.git_status()
   }
 
   -- Can change the git icons using this.
-  -- opts.git_icons = {
-  --   changed = "M"
-  -- }
+  opts.git_icons = {
+    changed = "M"
+  }
 
   require("telescope.builtin").git_status(opts)
 end
@@ -65,6 +68,27 @@ function M.project_files()
   local opts = {} -- define here if you want to define something
   local ok = pcall(require'telescope.builtin'.git_files, opts)
   if not ok then require'telescope.builtin'.find_files(opts) end
+end
+
+function M.live_grep()
+  require("telescope.builtin").live_grep {
+    -- shorten_path = true,
+    -- previewer = false,
+    fzf_separator = "|>",
+  }
+end
+
+function M.grep_prompt()
+  require("telescope.builtin").grep_string {
+    path_display = { "shorten" },
+    search = vim.fn.input "Grep String > ",
+  }
+end
+
+function M.help_tags()
+  require("telescope.builtin").help_tags {
+    show_version = true,
+  }
 end
 
 return M
