@@ -26,9 +26,10 @@ require('lualine').setup {
         'diff',
         colored = true, -- displays diff status in color if set to true
         -- all colors are in format #rrggbb
-        color_added = nil, -- changes diff's added foreground color
-        color_modified = nil, -- changes diff's modified foreground color
-        color_removed = nil, -- changes diff's removed foreground color
+        color_added = '#73daca', -- changes diff's added foreground color
+        color_modified = '#e0af68', -- changes diff's modified foreground color
+        color_removed = '#f7768e', -- changes diff's removed foreground color
+        -- color_removed = nil,
         symbols = {added = '+', modified = '~', removed = '-'} -- changes diff symbols
       },
       'encoding',

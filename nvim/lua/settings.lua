@@ -75,3 +75,9 @@ map('n', '<leader>p', '"+p')
 map('n', '<leader>P', '"+P')
 map('v', '<leader>p', '"+p')
 map('v', '<leader>P', '"+P')
+
+-- Set wrap symbol (or no wrap)
+api.nvim_exec([[ let &showbreak='⤷ ' ]], true)
+-- wo.nowrap = true -- Display long lines as just one line
+
+-- No swapfiles

@@ -65,7 +65,14 @@ end
 -- Falling back to find_files if git_files can't find a .git directory
 -- https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#falling-back-to-find_files-if-git_files-cant-find-a-git-directory
 function M.project_files()
-  local opts = {} -- define here if you want to define something
+  local opts = { -- define here if you want to define something
+    -- path_display = { "shorten" },
+    -- Format path as "file.txt (path\to\file\)"
+    path_display = function(opts, path)
+      local tail = require("telescope.utils").path_tail(path)
+      return string.format("%s (%s)", tail, path)
+    end,
+  }
   local ok = pcall(require'telescope.builtin'.git_files, opts)
   if not ok then require'telescope.builtin'.find_files(opts) end
 end
